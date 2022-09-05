@@ -1,13 +1,13 @@
 import cv2 as cv
 import matplotlib.pyplot as plt
 
-#-------------function----------------------------------
+#-------------Function----------------------------------
 img = cv.imread("./im/aka.jpg")
 image = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 gray_image = cv.cvtColor(cv.cvtColor(img,cv.COLOR_BGR2GRAY), cv.COLOR_BGR2RGB)
 
 
-#-------------manual------------------------------------ 
+#-------------Manual------------------------------------ 
 img1 = img.copy()
 
 gray_b = 0.114*img1[:,:,0]
@@ -30,3 +30,5 @@ plt.subplot(133)
 plt.imshow(img1)
 
 plt.show()
+
+
