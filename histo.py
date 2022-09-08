@@ -25,12 +25,15 @@ img1[:,:,1] = gray_b + gray_g + gray_r
 img1[:,:,2] = gray_b + gray_g + gray_r
 new_img1 = cv.cvtColor(img1, cv.COLOR_BGR2RGB)
 
-
 plt.subplot(131)
+plt.title("Original image")
+plt.imshow(image)
+
+plt.subplot(132)
 plt.title("Manual convert BGR to grayscale")
 plt.imshow(gray_image_for_plot)
 
-plt.subplot(132)
+plt.subplot(133)
 plt.title("luminosity")
 plt.imshow(new_img1)
 plt.show()
@@ -43,7 +46,7 @@ histr = cv.calcHist([gray_image],[0],None,[256],[0,256])
 #-------------Manual histogram------------------------------------ 
 def histo(image):
     hist = np.zeros(256)
-    for i in image.flatten():
+    for i in image.ravel():
         hist[i] +=1
         
     return hist
