@@ -7,9 +7,9 @@ from PIL import Image
 
 def convRGB2XYZ(path_to_photo):
     img = cv.resize(cv.imread(path_to_photo), (600,400))
-    norm_r = img[:,:,0]/255
+    norm_b = img[:,:,0]/255
     norm_g = img[:,:,1]/255
-    norm_b = img[:,:,2]/255
+    norm_r = img[:,:,2]/255
 
     height, width = img.shape[:2]
     new_r = np.zeros((height,width))
