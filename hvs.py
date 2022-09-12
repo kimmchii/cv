@@ -1,4 +1,3 @@
-from tkinter.tix import MAX
 import cv2 as cv
 import numpy as np 
 
@@ -8,7 +7,7 @@ img = cv.resize(cv.imread("./im/aka.jpg"), (600,400))
 
 b = img[:,:,0]/255
 g = img[:,:,1]/255
-r = img[:,:,2]/255
+r = img[:,:,2]/255  
 
 
 height, width = img.shape[:2]
@@ -50,12 +49,12 @@ v = v*255
 h = h.astype(dtype=np.uint8)
 s = s.astype(dtype=np.uint8)
 v = v.astype(dtype=np.uint8)
-print(s)
+
+print(h)
 vsh = cv.merge((h,s,v))
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 H,S,V = cv.split(hsv)
-
-print(S)
+print(H)
 cv.imshow("code", vsh)
 cv.imshow("hsv", hsv)
 cv.waitKey(0)
