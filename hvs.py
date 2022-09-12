@@ -23,24 +23,25 @@ for i in range(height):
     for j in range(width):
         mx[i][j] = max(b[i][j], g[i][j], r[i][j])
         mn[i][j] = min(b[i][j], g[i][j], r[i][j])
-
-df = mx[:] - mn[:]
-
-for i in range(height):
-    for j in range(width):
+        
+ 
         if mx[i][j] == r[i][j]:
-            h[i][j] = 60*(g[i][j]-b[i][j])/df[i][j]
+            h[i][j] = 60*(g[i][j]-b[i][j])/(mx[i][j]-mn[i][j])
         elif mx[i][j]  == g[i][j] :
-            h[i][j] = 120 + 60*(b[i][j]-r[i][j])/df[i][j]
+            h[i][j] = 120 + 60*(b[i][j]-r[i][j])/(mx[i][j]-mn[i][j])
         elif mx[i][j]  == b[i][j] :
-            h[i][j] = 240 + 60*((r[i][j] -g[i][j] )/df[i][j])
+            h[i][j] = 240 + 60*(r[i][j] -g[i][j] )/(mx[i][j]-mn[i][j])
         
         if mx[i][j]  == 0:
             s[i][j] = 0
         else:
-            s[i][j] = df[i][j] /mx[i][j] 
+            s[i][j] = (mx[i][j]-mn[i][j])/mx[i][j] 
 
-        v[i][j] = mx[i][j]*100
+        if h[i,j] < 0:
+            h[i,j] = h[i,j] + 360
+
+        v[i][j] = mx[i][j]
+
 
 h = h/2
 s = s*255
@@ -49,13 +50,14 @@ v = v*255
 h = h.astype(dtype=np.uint8)
 s = s.astype(dtype=np.uint8)
 v = v.astype(dtype=np.uint8)
-print(h)
+print(s)
+vsh = cv.merge((h,s,v))
+hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+H,S,V = cv.split(hsv)
 
-cv.imshow("",img)
+print(S)
+cv.imshow("code", vsh)
+cv.imshow("hsv", hsv)
 cv.waitKey(0)
 cv.destroyAllWindows()
-
-hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-h,s,v = cv.split(hsv)
-print(h)
 
