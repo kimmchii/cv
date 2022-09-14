@@ -4,7 +4,6 @@ from PIL import Image
 
 #we need to convert the normal image to xyz domain first
 
-
 def convRGB2XYZ(path_to_photo):
     img = cv.resize(cv.imread(path_to_photo), (600,400))
     norm_b = img[:,:,0]/255
@@ -76,9 +75,16 @@ def convXYZ2LAB(x,y,z,height,width):
     return cie_L, cie_A, cie_B
 
 file = "./im/aka.jpg"
+img = cv.resize(cv.imread("./im/aka.jpg"), (600,400))
 x, y, z, height, weight = convRGB2XYZ(file)
 L, A, B = convXYZ2LAB(x, y, z, height, weight)
 
 LAB_image= cv.merge((L,A,B)).astype(np.uint8)
 im = Image.fromarray(LAB_image, mode = "LAB")
 im.save('./im/lab.tiff')
+cv.imshow("orignial", img)
+cv.imshow("L", L)
+cv.imshow("A", A)
+cv.imshow("B", B)
+cv.waitKey(0)
+cv.destroyAllWindows()

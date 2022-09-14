@@ -1,14 +1,11 @@
 import cv2 as cv
 import numpy as np 
 
-
-
 img = cv.resize(cv.imread("./im/aka.jpg"), (600,400))
 
 b = img[:,:,0]/255
 g = img[:,:,1]/255
 r = img[:,:,2]/255  
-
 
 height, width = img.shape[:2]
 
@@ -55,8 +52,12 @@ vsh = cv.merge((h,s,v))
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 H,S,V = cv.split(hsv)
 print(H)
-cv.imshow("code", vsh)
-cv.imshow("hsv", hsv)
+cv.imshow("original", img)
+cv.imshow("manual code", vsh)
+cv.imshow("h", h)
+cv.imshow("s", s)
+cv.imshow("v", v)
+cv.imshow("hsv function", hsv)
 cv.waitKey(0)
 cv.destroyAllWindows()
 

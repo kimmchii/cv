@@ -33,7 +33,13 @@ CMYK_image= cv.merge((c,m,y,k)).astype(np.uint8)
 # cv.destroyAllWindows()
 im = Image.fromarray(CMYK_image, mode = "CMYK")
 im.save('./im/test.tiff')
-
+cv.imshow("original", img)
+cv.imshow("C", c)
+cv.imshow("M", m)
+cv.imshow("Y", y)
+cv.imshow("K", k)
+cv.waitKey(0)
+cv.destroyAllWindows()
 
 
 
