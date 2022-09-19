@@ -28,7 +28,6 @@ def finding_pixel(input):
     mn = min(input.ravel())
     return mx, mn
 
-
 def cs(input, low, high):
     input = cv.cvtColor(input, cv.COLOR_BGR2GRAY)
     mx, mn = finding_pixel(input)
