@@ -5,7 +5,7 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 
 def hist_equalize(input):
-    pdf_hist, cdf_hist = cummu_hist(input)
+    cdf_hist = cummu_hist(input)
     height, width = input.shape[:2]
     new_pixel = np.zeros((height,width))
     input = cv.cvtColor(input, cv.COLOR_BGR2GRAY)
@@ -15,7 +15,7 @@ def hist_equalize(input):
             new_pixel[i][j] = value
     new_pixel = new_pixel.astype(np.uint8)
     new_pixel = cv.cvtColor(new_pixel, cv.COLOR_BGR2RGB)
-    return new_pixel, pdf_hist, cdf_hist
+    return new_pixel, cdf_hist
 
 def cummu_hist(input):
     input = cv.cvtColor(input, cv.COLOR_BGR2GRAY)
@@ -24,7 +24,7 @@ def cummu_hist(input):
     pdf_hist = hist/(height*width)
     cdf_hist = np.cumsum(pdf_hist)
 
-    return pdf_hist, cdf_hist
+    return cdf_hist
 
 def histo(image):
     hist = np.zeros(256)
@@ -40,10 +40,9 @@ x_axis = range(0,256)
 img = cv.imread("./im/aka.jpg")
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 gray = cv.cvtColor(gray, cv.COLOR_BGR2RGB)
-
-pdf_hist, cdf_hist = cummu_hist(img)
-result, pdf, cdf = hist_equalize(img)
-new_pdf, new_cdf = cummu_hist(result)
+cdf_hist = cummu_hist(img)
+result,  cdf = hist_equalize(img)
+new_cdf = cummu_hist(result)
 
 plt.subplot(121)
 plt.plot(x_axis, cdf_hist)
