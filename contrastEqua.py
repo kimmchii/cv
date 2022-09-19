@@ -13,12 +13,16 @@ def histogram(input, input2):
     
     plt.subplot(221)
     plt.imshow(plot_img)
+    plt.title("Input image")
     plt.subplot(222)
+    plt.title("Input image histogram")
     plt.plot(hist)
     plt.subplot(223)
+    plt.title("Stretched image")
     plt.imshow(plot_img2)
     plt.subplot(224)
     plt.plot(hist2)
+    plt.title("Stretched image histogram")
     plt.show()
 
 
@@ -44,23 +48,11 @@ def cs(input, low, high):
     new_p = new_pix.astype(np.uint8)
     img = cv.cvtColor(input, cv.COLOR_BGR2RGB)
     new_p = cv.cvtColor(new_p, cv.COLOR_BGR2RGB)
-    # img = cv.merge((input, input, input))
-    # new_p = cv.merge((new_p, new_p, new_p))
-    plt.subplot(121)
-    plt.imshow(img)
-    plt.title("original")
-    plt.subplot(122)
-    plt.imshow(new_p)
-    plt.title("converted")
-    plt.show()
     return new_p
  
 
-#img = cv.cvtColor(cv.imread("./im/aka.jpg"), cv.COLOR_BGR2GRAY)
 img = cv.imread("./im/low_contrast-man.png")
-#histogram(img)
 result = cs(img, 0, 255)
-result2 = cs(result, 143, 253)
+#result2 = cs(result, 143, 253)
 
 histogram(img, result)
-histogram(result, result2)

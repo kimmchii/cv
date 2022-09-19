@@ -17,13 +17,6 @@ def thresholds(input, cutoff):
     
     img = cv.cvtColor(input, cv.COLOR_GRAY2RGB)
     new_p = cv.cvtColor(new_pixel, cv.COLOR_GRAY2RGB)
-    plt.subplot(121)
-    plt.imshow(img)
-    plt.title("original")
-    plt.subplot(122)
-    plt.imshow(new_p)
-    plt.title("converted")
-    plt.show()
     return new_p
 
 def histogram(input, input2):
@@ -36,12 +29,16 @@ def histogram(input, input2):
     
     plt.subplot(221)
     plt.imshow(plot_img)
+    plt.title("Original image")
     plt.subplot(222)
     plt.plot(hist)
+    plt.title("Original image histogram")
     plt.subplot(223)
     plt.imshow(plot_img2)
+    plt.title("Converted image")
     plt.subplot(224)
     plt.plot(hist2)
+    plt.title("Converted image histogram")
     plt.show()
     
 
