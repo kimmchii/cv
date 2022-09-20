@@ -1,4 +1,5 @@
 from cProfile import label
+from tkinter import N
 from turtle import color
 import numpy as np 
 import matplotlib.pyplot as plt 
@@ -41,8 +42,8 @@ def nearest(input_val, input_list1):
 
 def nearest_cdf(input_list0, input_list1):
     num = np.zeros(256).astype(np.float32)
-    for i, n in enumerate(input_list0):
-        num[i] = nearest(n, input_list1)
+    for i, n in enumerate(input_list1):
+        num[i] = nearest(n, input_list0)
     return num
 
 x_axis = range(0,256)
@@ -63,21 +64,24 @@ plt.title("input image")
 plt.subplot(222)
 plt.plot(x_axis, cdf_hist0, color="r")
 plt.legend(['input image histogram'])
+plt.title('Input image histogram')
 plt.subplot(223)
 plt.imshow(img1)
 plt.title("reference image")
-plt.legend(['reference image histogram'])
 plt.subplot(224)
-plt.plot(x_axis, cdf_hist1)
+plt.plot(x_axis, cdf_hist1, color="b")
+plt.legend(['reference image histogram'])
+plt.title('Reference image histogram')
 plt.show()
 
 plt.subplot(121)
 plt.imshow(new_pixel)
-plt.title("output image")
+plt.title("Output image")
 plt.subplot(122)
 plt.plot(x_axis, cdf_hist0, color='r')
 plt.plot(x_axis, cdf_hist1, color="b")
 plt.plot(x_axis, cdf_hist, color='g')
 plt.legend(['input image histogram','reference image histogram','output image histogram'] )
+plt.title("SUmmary histogram")
 plt.show()
 
