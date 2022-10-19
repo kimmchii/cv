@@ -2,7 +2,8 @@ import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
 
-path2img = "./im/pepper_girl.png"
+# path2img = "./im/pepper_girl.png"
+path2img = "./im/mona.jpeg"
 mask = np.zeros(shape=(3,3))
 W_mask = np.array([[1,2,1], [2,3,2], [1,2,1]])
 
