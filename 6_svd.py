@@ -1,0 +1,35 @@
+import numpy as np 
+from numpy.linalg import eig
+
+# a = np.array([[0, 2], 
+#               [2, 3]])
+# w,v=eig(a)
+# print('E-value:', w)
+# print('E-vector', v)
+
+# a = np.array([[1,1,1], [1,1,1], [1,1,1]])
+# # print(a)
+# u, s, vh = np.linalg.svd(a, full_matrices=True)
+# b = np.dot(u[:, :3] * s, vh)
+# # print(u)
+# print(u[:,:3])
+# print(s)
+# print(vh)
+# # print(b)
+# c = np.array([[-0.57735027, -0.57735027, -0.57735027]])
+# d = np.array([[-0.57735027],[-0.57735027], [-0.57735027]])
+# print(np.dot(d,c))
+
+a = np.array([[1,2,1], [2,4,2], [1,2,1]])
+# print(a)
+u, s, vh = np.linalg.svd(a, full_matrices=True)
+b = np.dot(u[:, :3] * s, vh)
+# print(u)
+print(u[:,:3])
+print(s)
+print(vh)
+print(b)
+#c = np.array([[-4.08248290e-01 , 9.12870929e-01, -4.16416654e-17]])
+c = np.array([[-0.40824829, -0.81649658, -0.40824829]])
+d = np.array([[-4.08248290e-01], [-8.16496581e-01], [-4.08248290e-01]])
+print(np.dot(d,c)*6)
