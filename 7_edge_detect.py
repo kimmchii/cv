@@ -2,10 +2,11 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 import numpy as np
 
-# path = "./im/mount.jpg"
-path = "./im/stonk.jpg"
+path = "./im/under.png"
+# path = "./im/stonk.jpg"
+# path = "./im/luce.png"
 def inputImg(path2img):
-    img = cv.resize(cv.imread(path2img), (700,500))
+    img = cv.resize(cv.imread(path2img), (500,500))
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     return img, gray 
 
@@ -31,11 +32,23 @@ def derivFilt(img, kernel):
     for i in range(conV.shape[0]):
         for j in range(conV.shape[1]):
             val =  (1/2*kernel*(img[i:i+kernel.shape[0], j:j+kernel.shape[1]])).sum()
-            conV[i,j] = val
             if val < 5 :
                 conV[i,j] = 0
             else :
                 conV[i,j] = 255
+    conV = conV.astype(np.uint8)
+    return conV
+
+def derivFilt2(img, kernel):
+    conV = np.zeros((img.shape[0]-kernel.shape[0]+1, img.shape[1]-kernel.shape[1]+1))
+    for i in range(conV.shape[0]):
+        for j in range(conV.shape[1]):
+            val =  (kernel*(img[i:i+kernel.shape[0], j:j+kernel.shape[1]])).sum()
+            conV[i,j] = val
+            # if val < 5 :
+            #     conV[i,j] = 0
+            # else :
+            #     conV[i,j] = 255
     conV = conV.astype(np.uint8)
     return conV
 
@@ -76,11 +89,11 @@ def applyFilter(img, kernel1, kernel2, threshold):
 img, gray = inputImg(path)
 # conV= applyFilter(gray, mask_X_sobel, mask_Y_sobel, 10)
 # conV2 = applyFilter(gray, mask_X_prewitt, mask_Y_prewitt, 10)
-conV3 = applyFilter(gray, mask_X_robert, mask_Y_robert, 5)
-img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+# conV3 = applyFilter(gray, mask_X_robert, mask_Y_robert, 5)
+# img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 # conV = cv.cvtColor(conV, cv.COLOR_BGR2RGB)
 # conV2 = cv.cvtColor(conV2, cv.COLOR_BGR2RGB)
-conV3 = cv.cvtColor(conV3, cv.COLOR_BGR2RGB)
+# conV3 = cv.cvtColor(conV3, cv.COLOR_BGR2RGB)
 
 """
 plt.subplot(131)
@@ -94,7 +107,7 @@ plt.imshow(conV2)
 plt.title("Applying Prewitt Operators")
 plt.show()
 """
-
+"""
 plt.subplot(121)
 plt.imshow(img)
 plt.title("Original image")
@@ -102,18 +115,18 @@ plt.subplot(122)
 plt.imshow(conV3)
 plt.title("Applying Robert Operators")
 plt.show()
+"""
 # cv.imshow("dd", conV)
 # cv.imshow("ff", conV2)
 # cv.waitKey(0)
 # cv.destroyAllWindows()
-# matr = gray[11:18, 108:115] 
 
-# conV = derivFilt(matr, maskX_b)
-# conV2 = derivFilt(matr, maskY_b)
-# print(matr)
-# print(conV2)
-# cv.imshow("ori", gray)
-# cv.imshow("mask X", conV)
-# cv.imshow("mask Y", conV2)
-# cv.waitKey(0)
-# cv.destroyAllWindows()
+# matr = gray[11:18, 108:115] 
+conV = derivFilt2(gray, maskX_b)
+conV2 = derivFilt(gray, maskY_b)
+
+cv.imshow("ori", img)
+cv.imshow("mask X", conV)
+cv.imshow("mask Y", conV2)
+cv.waitKey(0)
+cv.destroyAllWindows()
