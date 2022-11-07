@@ -67,12 +67,12 @@ def compassFilter(img, array1, array2):
                 filt_img[i,j] = max(conV[0][i,j], conV[1][i,j], conV[2][i,j], conV[3][i,j])
 
     filt_img = filt_img.astype(np.uint8)
+    filt_img = cv.cvtColor(filt_img, cv.COLOR_BGR2RGB)
     return filt_img
 
 
 img, gray = inputImg(path)
 fit = compassFilter(gray, D0, D1)
-fit = cv.cvtColor(fit, cv.COLOR_BGR2RGB)
 plt.subplot(121)
 plt.imshow(img)
 plt.title("Original Image")
