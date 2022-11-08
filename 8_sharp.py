@@ -33,7 +33,7 @@ def sharpen(img, kernel, weight):
             if val <0:
                 val=0
             conV[i,j] = val
-
+    
     conV = conV.astype(np.uint8)
     return conV
 
