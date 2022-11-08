@@ -2,11 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2 as cv
 
-# path = "./im/under.png"
-# path = "./im/stonk.jpg"
 path = "./im/moon2.jpg"
-# path = "./im/blur_circle.jpg"
-# path = "./im/some_sign.jpg"
 
 laplace = np.array([[0,-1,0], [-1,4,-1], [0,-1,0]])
 #if the center of laplacian coeff is negative -> use - 
@@ -53,8 +49,25 @@ def applyFilter(img, kernel, weight):
 
 img, gray = inputImg(path)
 filt = sharpen(gray, laplace, 1)
-cv.imshow("ori", gray)
-cv.imshow("filted",filt)
-cv.waitKey(0)
-cv.destroyAllWindows()
+gray = cv.cvtColor(gray, cv.COLOR_BGR2RGB)
+filt = cv.cvtColor(filt, cv.COLOR_BGR2RGB)
+hist1 = cv.calcHist([gray], [0], None, [256], [0, 256])
+hist2 = cv.calcHist([filt], [0], None, [256], [0, 256])
+
+plt.subplot(121)
+plt.imshow(gray)
+plt.title("OpenCV Canny function")
+plt.subplot(122)
+plt.imshow(filt)
+plt.title("Sharp function")
+plt.show()
+
+plt.subplot(111)
+plt.plot(hist1, label = "Gray scale image")
+plt.legend()
+plt.plot(hist2, label = "Sharpen image")
+plt.legend()
+plt.title("Comparison between the histogram of gray scale and sharpen images")
+plt.show()
+
 

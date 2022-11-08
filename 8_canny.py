@@ -147,10 +147,14 @@ def cann(path):
 
 img = cv.imread(path)
 img = cv.resize(img, (int(img.shape[1]/6), int(img.shape[0]/6)))
-edges = cv.Canny(img,100,200)
-res = cann(path)
+edges = cv.cvtColor(cv.Canny(img,100,200), cv.COLOR_BGR2RGB)
+res = cv.cvtColor(cann(path), cv.COLOR_BGR2RGB)
+plt.subplot(121)
+plt.imshow(edges)
+plt.title("OpenCV Canny function")
+plt.subplot(122)
+plt.imshow(res)
+plt.title("Try By Myself function")
+plt.show()
 
-cv.imshow("c", res)
-cv.imshow("orginal", edges)
-cv.waitKey(0)
-cv.destroyAllWindows()
+

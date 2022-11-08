@@ -42,14 +42,24 @@ def unsharpen(img, smooth, weight):
 
 
 img, gray = inputImg(path)
-conV = unsharpen(gray, guassian, 3)
+conV = unsharpen(gray, guassian, 5)
+gray = cv.cvtColor(gray, cv.COLOR_BGR2RGB)
+conV = cv.cvtColor(conV, cv.COLOR_BGR2RGB)
 hist1 = cv.calcHist([gray], [0], None, [256], [0, 256])
 hist2 = cv.calcHist([conV], [0], None, [256], [0, 256])
 
-cv.imshow("d", gray)
-cv.imshow("f", conV)
-cv.waitKey(0)
-cv.destroyAllWindows()
+plt.subplot(121)
+plt.imshow(gray)
+plt.title("OpenCV Canny function")
+plt.subplot(122)
+plt.imshow(conV)
+plt.title("Unsharp function")
+plt.show()
 
-
+plt.subplot(111)
+plt.plot(hist1, label = "Gray scale image")
+plt.legend()
+plt.plot(hist2, label = "Unsharpen image")
+plt.legend()
+plt.title("Comparison between the histogram of gray scale and unsharpen images")
 plt.show()
