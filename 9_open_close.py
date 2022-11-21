@@ -2,10 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2 as cv
 
-# path = "./im/i.png"
+path = "./im/i.png"
 # path = "./im/i_dot_inside.png"
 # path2 = "./im/i_dot_outside.png"
-path = "./im/incred_3.png"
+# path = "./im/incred_3.png"
+kernel = np.ones((3,3),np.uint8)
 def binary_img(path2img):
     img = cv.imread(path2img,0)
     img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)))
@@ -75,8 +76,20 @@ def closing(path):
     plt.imshow(cv.cvtColor(close, cv.COLOR_BGR2RGB))
     plt.title("Closing developed function")
     plt.show()
-    return open, im
+    return close, im
 
-closing(path)
-opening(path)
+bw, im = binary_img(path)
+dilate = cv.cvtColor(dilation(bw), cv.COLOR_BGR2RGB)
+bw = cv.cvtColor(bw, cv.COLOR_BGR2RGB)
+dilation = cv.cvtColor(cv.dilate(im,kernel,iterations = 1), cv.COLOR_BGR2RGB)
+plt.subplot(131)
+plt.imshow(bw)
+plt.title("Original binary image")
+plt.subplot(132)
+plt.imshow(dilation)
+plt.title("Dilation OpenCV function")
+plt.subplot(133)
+plt.imshow(dilate)
+plt.title("Dilation developed function")
+plt.show()
 
